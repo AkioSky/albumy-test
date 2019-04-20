@@ -155,7 +155,8 @@ def register_commands(app):
         fake_comment(comment)
         click.echo('Done.')
 
-
+config_name = os.getenv('FLASK_CONFIG', 'development')
+app.config.from_object(config[config_name])
 register_extensions(app)
 register_blueprints(app)
 register_commands(app)
