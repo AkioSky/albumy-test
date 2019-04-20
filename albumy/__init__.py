@@ -22,24 +22,6 @@ from albumy.models import Role, User, Photo, Tag, Follow, Notification, Comment,
 from albumy.settings import config
 
 
-def create_app(config_name=None):
-    if config_name is None:
-        config_name = os.getenv('FLASK_CONFIG', 'development')
-
-    app = Flask('albumy')
-    
-    app.config.from_object(config[config_name])
-
-    register_extensions(app)
-    register_blueprints(app)
-    register_commands(app)
-    register_errorhandlers(app)
-    register_shell_context(app)
-    register_template_context(app)
-
-    return app
-
-
 def register_extensions(app):
     bootstrap.init_app(app)
     db.init_app(app)
@@ -50,6 +32,19 @@ def register_extensions(app):
     whooshee.init_app(app)
     avatars.init_app(app)
     csrf.init_app(app)
+
+#def create_app(config_name=None):
+#    if config_name is None:
+#        config_name = os.getenv('FLASK_CONFIG', 'development')
+
+app = Flask('albumy')
+    
+    #app.config.from_object(config[config_name])
+
+
+
+#    return app
+
 
 
 def register_blueprints(app):
@@ -159,3 +154,11 @@ def register_commands(app):
         click.echo('Generating %d comments...' % comment)
         fake_comment(comment)
         click.echo('Done.')
+
+
+register_extensions(app)
+register_blueprints(app)
+register_commands(app)
+register_errorhandlers(app)
+register_shell_context(app)
+register_template_context(app)
