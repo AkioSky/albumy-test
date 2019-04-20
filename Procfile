@@ -1,1 +1,1 @@
-python-2.7.15
+web: gunicorn app:app
